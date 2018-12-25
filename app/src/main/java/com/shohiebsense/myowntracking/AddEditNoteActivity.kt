@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_edit_note.*
 import android.text.TextUtils
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -58,6 +59,7 @@ class AddEditNoteActivity : AppCompatActivity() {
         recycler_category.layoutManager = LinearLayoutManager(this)
         recycler_category.setHasFixedSize(true)
         var adapter = CategoryAdapter()
+        recycler_category.adapter = adapter
         adapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener{
             override fun onItemClick(category: Category) {
 
@@ -70,8 +72,10 @@ class AddEditNoteActivity : AppCompatActivity() {
     fun initViewModel(adapter : CategoryAdapter){
         mCategoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
         mCategoryViewModel.mAllCategories?.observe(this,
-            Observer<List<Category>> {
-                    t -> adapter.submitList(t)
+            Observer<List<Category>> { t ->
+                adapter.submitList(t)
+                Log.e("shohiebsenseee size ",t.size.toString())
+
             })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {

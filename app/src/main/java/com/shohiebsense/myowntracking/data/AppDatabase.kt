@@ -4,7 +4,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.room.*
 import android.content.Context
 import android.os.AsyncTask
-import androidx.room.Database
 import com.shohiebsense.myowntracking.data.dao.CategoryDao
 import com.shohiebsense.myowntracking.data.dao.NoteDao
 import com.shohiebsense.myowntracking.data.model.Category
@@ -49,8 +48,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     }
 
-    override fun clearAllTables() {
-    }
+
 
     class PopulateDbAsyncTask(db : AppDatabase?) : AsyncTask<Unit, Unit, Unit>(){
         private val categoryDao = db?.categoryDao()

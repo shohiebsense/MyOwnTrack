@@ -17,5 +17,6 @@ object DataConstants {
         const val createdTime = "createdTime"
         const val modifiedTime = "modifiedTime"
         const val category = "category"
+        const val categoryId = "categoryId"
     }
 }

@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -37,12 +36,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01'
     implementation 'androidx.room:room-runtime:2.1.0-alpha03'
-
+    kapt "android.arch.persistence.room:compiler:1.1.1"
 
     //view
     implementation 'com.shawnlin:number-picker:2.4.7'
 
-    annotationProcessor 'androidx.room:room-compiler:2.1.0-alpha03'
+    kapt 'androidx.room:room-compiler:2.1.0-alpha03'
     androidTestImplementation 'androidx.room:room-testing:2.1.0-alpha03'
 
     testImplementation 'junit:junit:4.12'

@@ -1,5 +1,6 @@
 package com.shohiebsense.myowntracking.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.shohiebsense.myowntracking.constants.DataConstants
@@ -17,18 +18,21 @@ interface NoteDao{
     @Delete
     fun delete(note : Note)
 
+    //@Transaction
     @Query("DELETE FROM ${DataConstants.TABLE_NOTE}")
     fun deleteAllNotes()
 
-
+    //@Transaction
     @Query("SELECT * from ${DataConstants.TABLE_NOTE} ORDER BY ${DataConstants.ATTRIBUTE.priority}")
-    fun getAllNotesByPriority() : MutableLiveData<List<Note>>
+    fun getAllNotesByPriority() : LiveData<List<Note>>
 
+    //@Transaction
     @Query("SELECT * FROM ${DataConstants.TABLE_NOTE} ORDER BY ${DataConstants.ATTRIBUTE.modifiedTime} DESC")
-    fun getAllNotesByTimeRecently() : MutableLiveData<List<Note>>
+    fun getAllNotesByTimeRecently() : LiveData<List<Note>>
 
+    //@Transaction
     @Query("SELECT * FROM ${DataConstants.TABLE_NOTE} ORDER BY ${DataConstants.ATTRIBUTE.createdTime}")
-    fun getAllNotesByTimeAdded() : MutableLiveData<List<Note>>
+    fun getAllNotesByTimeAdded() : LiveData<List<Note>>
 
 
 }

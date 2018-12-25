@@ -41,8 +41,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         fab.setOnClickListener { view ->
-            /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()*/
+            startActivityForResult(
+                Intent(this, AddEditNoteActivity::class.java),
+                ADD_NOTE_REQUEST
+            )
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -89,6 +91,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recycler_note.layoutManager = LinearLayoutManager(this)
         recycler_note.setHasFixedSize(true)
         var adapter = NoteAdapter()
+        recycler_note.adapter = adapter
         adapter.setOnItemClickListener(object : NoteAdapter.OnItemClickListener{
             override fun onItemClick(note: Note) {
 
@@ -149,7 +152,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 data.getIntExtra(AddEditNoteActivity.EXTRA_PRIORITY, 1),
                 "",
                 "",
-                Category("",1)
+                ""
             )
             runBlocking {
                 mNoteViewModel.insert(newNote)
@@ -169,7 +172,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 data.getIntExtra(AddEditNoteActivity.EXTRA_PRIORITY, 1),
                 "",
                 "",
-                Category("",1)
+                ""
             )
             updateNote.id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1)
             runBlocking {

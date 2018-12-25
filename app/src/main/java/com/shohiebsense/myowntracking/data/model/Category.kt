@@ -12,7 +12,6 @@ data class Category(
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-        private set
 
     constructor(source: Parcel) : this(
         source.readString(),

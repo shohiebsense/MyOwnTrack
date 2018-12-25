@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.shohiebsense.myowntracking.R
 import com.shohiebsense.myowntracking.data.model.Category
-import com.shohiebsense.myowntracking.data.model.Note
 import kotlinx.android.synthetic.main.item_category.view.*
 
 class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DIFF_CALLBACK) {

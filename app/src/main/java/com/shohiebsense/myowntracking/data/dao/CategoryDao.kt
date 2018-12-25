@@ -1,13 +1,11 @@
 package com.shohiebsense.myowntracking.data.dao
 
-import androidx.lifecycle.MutableLiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.shohiebsense.myowntracking.constants.DataConstants
 import com.shohiebsense.myowntracking.data.model.Category
 
+@Dao
 interface CategoryDao {
 
     @Insert
@@ -19,8 +17,9 @@ interface CategoryDao {
     @Delete
     fun delete(category : Category)
 
+    //@Transaction
     @Query("SELECT * FROM ${DataConstants.TABLE_CATEGORY}")
-    fun getCategories() : MutableLiveData<List<Category>>
+    fun getCategories() : LiveData<List<Category>>
 
 
 
