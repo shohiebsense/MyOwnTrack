@@ -11,8 +11,8 @@ data class Note(
     var title: String,
     var description: String,
     var priority : Int,
-    var createdTime : Int,
-    var modifiedTime : Int,
+    var createdTime : String,
+    var modifiedTime : String,
     var category : Category
 ) {
     @PrimaryKey(autoGenerate = true)

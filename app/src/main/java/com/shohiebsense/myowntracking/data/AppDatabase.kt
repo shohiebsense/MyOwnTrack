@@ -5,16 +5,22 @@ import androidx.room.*
 import android.content.Context
 import android.os.AsyncTask
 import androidx.room.Database
+import com.shohiebsense.myowntracking.data.dao.CategoryDao
+import com.shohiebsense.myowntracking.data.dao.NoteDao
 import com.shohiebsense.myowntracking.data.model.Category
 import com.shohiebsense.myowntracking.data.model.Note
 
 @Database(entities = [Note::class, Category::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
+    abstract fun noteDao() : NoteDao
+    abstract fun categoryDao() : CategoryDao
+
+
     //dao
 
     companion object {
-        private var instance: AppDatabase? = null
+        @Volatile private var instance: AppDatabase? = null
 
         fun getInstance(context : Context) : AppDatabase? {
             if(instance == null){

@@ -1,35 +1,40 @@
 package com.shohiebsense.myowntracking.data.repository
 
+import android.app.Application
+import com.shohiebsense.myowntracking.data.AppDatabase
 import com.shohiebsense.myowntracking.data.dao.CategoryDao
 import com.shohiebsense.myowntracking.data.model.Category
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
 class CategoryRepository private constructor(
-    private val categoryDao: CategoryDao
+    private val application: Application
 ){
+
+    private val categoryDao = AppDatabase.getInstance(application.applicationContext)?.categoryDao()
+
     companion object {
         @Volatile private var instance : CategoryRepository? = null
 
-        fun getInstance(categoryDao: CategoryDao) =
+        fun getInstance(application: Application) =
             instance ?: synchronized(this){
-                instance ?: CategoryRepository(categoryDao)
+                instance ?: CategoryRepository(application)
                     .also { instance = it }
             }
     }
 
     suspend fun createCategory(category: Category){
         withContext(IO){
-            categoryDao.insert(category)
+            categoryDao?.insert(category)
         }
     }
 
     suspend fun removeCategory(category : Category){
         withContext(IO){
-            categoryDao.delete(category)
+            categoryDao?.delete(category)
         }
     }
 
-    fun getAll() = categoryDao.getCategories()
+    fun getAll() = categoryDao?.getCategories()
 
 }

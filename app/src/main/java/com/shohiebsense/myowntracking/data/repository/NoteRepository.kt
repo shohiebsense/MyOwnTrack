@@ -1,44 +1,54 @@
 package com.shohiebsense.myowntracking.data.repository
 
+import android.app.Application
+import com.shohiebsense.myowntracking.data.AppDatabase
 import com.shohiebsense.myowntracking.data.dao.NoteDao
 import com.shohiebsense.myowntracking.data.model.Note
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
 class NoteRepository private constructor(
-    private val noteDao : NoteDao
+    private val application: Application
 ) {
+
+    private val noteDao = AppDatabase.getInstance(application.applicationContext)?.noteDao()
 
     companion object {
         @Volatile private var instance : NoteRepository? = null
 
-        fun getInstance(noteDao: NoteDao) =
+        fun getInstance(application: Application) =
             instance ?: synchronized(this) {
-                instance ?: NoteRepository(noteDao)
+                instance ?: NoteRepository(application)
                     .also { instance = it }
             }
     }
 
     suspend fun createNote(note : Note){
         withContext(IO){
-            noteDao.insert(note)
+            noteDao?.insert(note)
+        }
+    }
+
+    suspend fun editNote(note : Note){
+        withContext(IO){
+            noteDao?.update(note)
         }
     }
 
     suspend fun removeNote(note : Note){
         withContext(IO){
-            noteDao.delete(note)
+            noteDao?.delete(note)
         }
     }
 
     fun getNotesByCreatedTime() =
-        noteDao.getAllNotesByTimeAdded()
+        noteDao?.getAllNotesByTimeAdded()
 
     fun getNotesRecently() =
-        noteDao.getAllNotesByTimeRecently()
+        noteDao?.getAllNotesByTimeRecently()
 
     fun getNotes() =
-        noteDao.getAllNotesByPriority()
+        noteDao?.getAllNotesByPriority()
 
 
 
