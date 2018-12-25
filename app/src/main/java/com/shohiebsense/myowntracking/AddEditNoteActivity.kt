@@ -105,7 +105,7 @@ class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationList
     }
 
     override fun onError(hashCode: Int, formType : Int) {
-        var editText = ValidateUtils.getGotErrorEditText(arrayListOf(edit_title, edit_description),hashCode)!!
-        editText.error = ValidateUtils.getErrorMessage(this, formType)
+        ValidateUtils.generateErrorMessage(this, editTexts, formType, hashCode)
     }
+
 }

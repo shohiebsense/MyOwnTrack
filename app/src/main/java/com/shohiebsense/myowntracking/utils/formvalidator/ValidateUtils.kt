@@ -29,4 +29,9 @@ object ValidateUtils {
         }
         return ""
     }
+
+    fun generateErrorMessage(context: Context, editTexts: ArrayList<EditText>, formType: Int, hashCode: Int){
+        var editText = getGotErrorEditText(editTexts,hashCode)!!
+        editText.error = getErrorMessage(context, formType)
+    }
 }
