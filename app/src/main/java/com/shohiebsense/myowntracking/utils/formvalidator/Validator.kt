@@ -2,9 +2,7 @@ package com.shohiebsense.myowntracking.utils.formvalidator
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Patterns
 import android.widget.EditText
-import com.shohiebsense.myowntracking.R
 
 fun validate(func : Validator.() -> Unit): Validator = Validator().apply{func()}
 class Validator : TextWatcher {
@@ -49,7 +47,7 @@ class Validator : TextWatcher {
         if(str == null) return false
         initMinimumStandardLength(str.toString())
         if(!isLengthValid){
-            listener.onError(str.hashCode(), FORM_TYPE_BASIC)
+            listener.onFormValidationError(str.hashCode(), FORM_TYPE_BASIC)
             return false
         }
 
@@ -63,7 +61,7 @@ class Validator : TextWatcher {
     }
 
     interface onErrorValidationListener{
-        fun onError(charSequence : Int, formType: Int)
+        fun onFormValidationError(charSequence : Int, formType: Int)
     }
 
 }

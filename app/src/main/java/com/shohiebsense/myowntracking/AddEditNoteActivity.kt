@@ -103,7 +103,7 @@ class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationList
         ).attachToRecyclerView(recycler_category)
     }
 
-    override fun onError(hashCode: Int, formType : Int) {
+    override fun onFormValidationError(hashCode: Int, formType : Int) {
         ValidateUtils.generateErrorMessage(this, editTexts, formType, hashCode)
     }
 
