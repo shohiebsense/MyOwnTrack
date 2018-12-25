@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shohiebsense.myowntracking.adapters.CategoryAdapter
 import com.shohiebsense.myowntracking.data.model.Category
+import com.shohiebsense.myowntracking.utils.formvalidator.ValidateUtils
 import com.shohiebsense.myowntracking.utils.formvalidator.Validator
 import com.shohiebsense.myowntracking.viewmodel.CategoryViewModel
 import kotlinx.android.synthetic.main.content_add_edit_note.*
@@ -27,6 +28,7 @@ class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationList
 
 
     lateinit var mCategoryViewModel : CategoryViewModel
+    lateinit var editTexts : ArrayList<EditText>
 
     companion object {
         const val EXTRA_ID = "EXTRA_ID"
@@ -44,9 +46,8 @@ class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationList
         setSupportActionBar(toolbar)
         initRecyclerView()
 
-        var validator = Validator()
-        validator.listener = this
-        validator.init(arrayListOf(edit_title, edit_description))
+        editTexts = arrayListOf(edit_title,edit_description)
+        Validator().initListener(this).init(editTexts)
 
         button_action.setOnClickListener { view ->
             val replyIntent = Intent()
@@ -103,7 +104,8 @@ class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationList
         ).attachToRecyclerView(recycler_category)
     }
 
-    override fun onError(editText: EditText, errorMessage: String) {
-        editText.error = errorMessage
+    override fun onError(hashCode: Int, formType : Int) {
+        var editText = ValidateUtils.getGotErrorEditText(arrayListOf(edit_title, edit_description),hashCode)!!
+        editText.error = ValidateUtils.getErrorMessage(this, formType)
     }
 }

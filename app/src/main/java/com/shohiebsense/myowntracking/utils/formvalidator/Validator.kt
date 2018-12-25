@@ -1,6 +1,5 @@
 package com.shohiebsense.myowntracking.utils.formvalidator
 
-import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
@@ -10,17 +9,27 @@ import com.shohiebsense.myowntracking.R
 fun validate(func : Validator.() -> Unit): Validator = Validator().apply{func()}
 class Validator : TextWatcher {
 
+    companion object {
+        var FORM_TYPE_EMAIL = 0
+        var FORM_TYPE_PHONE = 1
+        var FORM_TYPE_BASIC = -1
+    }
+
     var isLengthValid = false
     var STRING_MINIMUM_STANDARD_LENGTH = 5
 
     var isValidatorValid = false
 
-    var validateEditTexts = arrayListOf<ValidateEditText>()
+    //var validateEditTexts = arrayListOf<ValidateEditText>()
     lateinit var listener : onErrorValidationListener
+
+    fun initListener(listener: onErrorValidationListener) : Validator{
+        this.listener = listener
+        return this
+    }
 
     fun init(editTexts : ArrayList<EditText>) {
         editTexts.forEach { editText ->
-            validateEditTexts.add(ValidateEditText(editText))
             editText.addTextChangedListener(this)
         }
     }
@@ -33,42 +42,20 @@ class Validator : TextWatcher {
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        isValidatorValid = onTextChangedValidation()
+        isValidatorValid = onTextChangedValidation(s)
     }
 
-    fun onTextChangedValidation() : Boolean {
-        for(index in 0 .. validateEditTexts.lastIndex){
-            initMinimumStandardLength(validateEditTexts[index].editText.text.toString())
-            when(validateEditTexts[index].formType){
-                ValidateEditText.FORM_TYPE_BASIC -> {
-                    validateEditTexts[index].passed = setValidation()
-                }
-                ValidateEditText.FORM_TYPE_EMAIL -> {
-                    validateEditTexts[index].passed =   setValidation(Patterns.EMAIL_ADDRESS.matcher(validateEditTexts[index].editText.text.toString()).matches())
-                }
-                ValidateEditText.FORM_TYPE_PHONE -> {
-                    validateEditTexts[index].passed = setValidation(Patterns.PHONE.matcher(validateEditTexts[index].editText.text.toString()).matches())
-                }
-            }
-            if(!validateEditTexts[index].passed) {
-                listener.onError(validateEditTexts[index].editText, validateEditTexts[index].error)
-                isValidatorValid = false
-                break
-            }
+    private fun onTextChangedValidation(str: CharSequence?) : Boolean {
+        if(str == null) return false
+        initMinimumStandardLength(str.toString())
+        if(!isLengthValid){
+            listener.onError(str.hashCode(), FORM_TYPE_BASIC)
+            return false
         }
-        isValidatorValid = true
-        return isValidatorValid
+
+        //get OTHER FORM TYPE
+        return true
     }
-
-
-    fun setValidation() : Boolean {
-        return isLengthValid
-    }
-
-    fun setValidation(isValid : Boolean) : Boolean {
-        return isValid && isLengthValid
-    }
-
 
     fun initMinimumStandardLength(strValidate : String) : Boolean  {
         isLengthValid = strValidate.length >= STRING_MINIMUM_STANDARD_LENGTH
@@ -76,7 +63,7 @@ class Validator : TextWatcher {
     }
 
     interface onErrorValidationListener{
-        fun onError(editText : EditText, errorMessage : String)
+        fun onError(charSequence : Int, formType: Int)
     }
 
 }
