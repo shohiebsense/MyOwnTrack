@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.shohiebsense.myowntracking.constants.DataConstants
+import com.shohiebsense.myowntracking.utils.constants.DataConstants
 
 @Entity(
     tableName = DataConstants.TABLE_NOTE,

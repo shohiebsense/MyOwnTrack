@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_add_edit_note.*
 import android.text.TextUtils
 import android.content.Intent
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,12 +17,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shohiebsense.myowntracking.adapters.CategoryAdapter
 import com.shohiebsense.myowntracking.data.model.Category
+import com.shohiebsense.myowntracking.utils.formvalidator.Validator
 import com.shohiebsense.myowntracking.viewmodel.CategoryViewModel
 import kotlinx.android.synthetic.main.content_add_edit_note.*
 import kotlinx.coroutines.runBlocking
 
 
-class AddEditNoteActivity : AppCompatActivity() {
+class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationListener {
+
+
     lateinit var mCategoryViewModel : CategoryViewModel
 
     companion object {
@@ -39,6 +43,10 @@ class AddEditNoteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_edit_note)
         setSupportActionBar(toolbar)
         initRecyclerView()
+
+        var validator = Validator()
+        validator.listener = this
+        validator.init(arrayListOf(edit_title, edit_description))
 
         button_action.setOnClickListener { view ->
             val replyIntent = Intent()
@@ -74,8 +82,6 @@ class AddEditNoteActivity : AppCompatActivity() {
         mCategoryViewModel.mAllCategories?.observe(this,
             Observer<List<Category>> { t ->
                 adapter.submitList(t)
-                Log.e("shohiebsenseee size ",t.size.toString())
-
             })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {
@@ -97,4 +103,7 @@ class AddEditNoteActivity : AppCompatActivity() {
         ).attachToRecyclerView(recycler_category)
     }
 
+    override fun onError(editText: EditText, errorMessage: String) {
+        editText.error = errorMessage
+    }
 }

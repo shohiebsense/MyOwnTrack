@@ -1,6 +1,4 @@
-package com.shohiebsense.myowntracking.constants
-
-import com.shohiebsense.myowntracking.data.model.Note
+package com.shohiebsense.myowntracking.utils.constants
 
 object DataConstants {
 

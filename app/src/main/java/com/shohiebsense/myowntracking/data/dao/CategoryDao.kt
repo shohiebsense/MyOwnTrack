@@ -2,7 +2,7 @@ package com.shohiebsense.myowntracking.data.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.shohiebsense.myowntracking.constants.DataConstants
+import com.shohiebsense.myowntracking.utils.constants.DataConstants
 import com.shohiebsense.myowntracking.data.model.Category
 
 @Dao

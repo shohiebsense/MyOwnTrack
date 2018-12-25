@@ -12,4 +12,7 @@
 	<string name="description">Description</string>
 	<string name="priority">Priority</string>
 	<string name="number_picker_formatter">%02d</string>
+	<string name="error_validate_email">Email Invalid</string>
+	<string name="error_validate_empty">Must not empty</string>
+	<string name="error_validate_phone">Phone Number is not valid</string>
 </resources>
