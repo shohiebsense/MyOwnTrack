@@ -60,11 +60,27 @@
 				app:np_selectedTextColor="@color/colorPrimary"
 				app:np_textColor="@color/colorPrimary"
 				app:np_value="3" />
-	
-	
+		
+		<TextView
+				android:id="@+id/text_category"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/number_priority"
+				android:text="@string/priority"
+				/>
+		
+		
+		<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/recycler_category"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/text_category"
+				android:layout_marginTop="@dimen/margin_cardview"
+				/>
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 </androidx.core.widget.NestedScrollView>

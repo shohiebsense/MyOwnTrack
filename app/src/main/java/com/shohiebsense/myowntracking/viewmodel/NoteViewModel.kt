@@ -7,9 +7,8 @@ import com.shohiebsense.myowntracking.data.repository.NoteRepository
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
-
     private var mRepository : NoteRepository = NoteRepository.getInstance(application)
-    var mAllWords = mRepository.getNotes()
+    var mAllNotes = mRepository.getNotes()
     private set
 
 

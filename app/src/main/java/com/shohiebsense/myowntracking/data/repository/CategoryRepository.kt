@@ -29,6 +29,12 @@ class CategoryRepository private constructor(
         }
     }
 
+    suspend fun editCategory(category : Category){
+        withContext(IO){
+            categoryDao?.update(category)
+        }
+    }
+
     suspend fun removeCategory(category : Category){
         withContext(IO){
             categoryDao?.delete(category)

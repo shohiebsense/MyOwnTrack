@@ -16,9 +16,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun noteDao() : NoteDao
     abstract fun categoryDao() : CategoryDao
 
-
-    //dao
-
     companion object {
         @Volatile private var instance: AppDatabase? = null
 
@@ -40,7 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
         private val roomCallback = object : RoomDatabase.Callback(){
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                //PopulateDbAsyncTask(instance).execute()
+                PopulateDbAsyncTask(instance).execute()
             }
         }
 
@@ -52,15 +49,17 @@ abstract class AppDatabase : RoomDatabase() {
 
     }
 
-
     override fun clearAllTables() {
     }
 
     class PopulateDbAsyncTask(db : AppDatabase?) : AsyncTask<Unit, Unit, Unit>(){
-        override fun doInBackground(vararg params: Unit?) {
-            //
-        }
+        private val categoryDao = db?.categoryDao()
 
+        override fun doInBackground(vararg params: Unit?) {
+            categoryDao?.insert(Category("Guitar",1))
+            categoryDao?.insert(Category("Programming",2))
+            categoryDao?.insert(Category("Sport",3))
+        }
     }
 
 }

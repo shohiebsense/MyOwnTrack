@@ -7,22 +7,38 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_edit_note.*
 import android.text.TextUtils
 import android.content.Intent
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.shohiebsense.myowntracking.adapters.CategoryAdapter
+import com.shohiebsense.myowntracking.data.model.Category
+import com.shohiebsense.myowntracking.viewmodel.CategoryViewModel
 import kotlinx.android.synthetic.main.content_add_edit_note.*
+import kotlinx.coroutines.runBlocking
 
 
 class AddEditNoteActivity : AppCompatActivity() {
+    lateinit var mCategoryViewModel : CategoryViewModel
+
     companion object {
-        const val EXTRA_ID = "com.mogalabs.tagnotes.EXTRA_ID"
-        const val EXTRA_TITLE = "com.mogalabs.tagnotes.EXTRA_TITLE"
-        const val EXTRA_DESCRIPTION = "com.mogalabs.tagnotes.EXTRA_DESCRIPTION"
-        const val EXTRA_PRIORITY = "com.mogalabs.tagnotes.EXTRA_PRIORITY"
-        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+        const val EXTRA_ID = "EXTRA_ID"
+        const val EXTRA_TITLE = "EXTRA_TITLE"
+        const val EXTRA_DESCRIPTION = "EXTRA_DESCRIPTION"
+        const val EXTRA_PRIORITY = "EXTRA_PRIORITY"
+        const val EXTRA_REPLY = "EXTRA_REPLY"
+        const val EXTRA_CATEGORYNAME = "EXTRA_CATEGORY"
+        const val EXTRA_CATEGORYPRIORITY = "EXTRA_CATEGORY_PRIORITY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_edit_note)
         setSupportActionBar(toolbar)
+        initRecyclerView()
+
         button_action.setOnClickListener { view ->
             val replyIntent = Intent()
             if (TextUtils.isEmpty(edit_title.text)) {
@@ -35,4 +51,46 @@ class AddEditNoteActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
+
+    fun initRecyclerView(){
+        recycler_category.layoutManager = LinearLayoutManager(this)
+        recycler_category.setHasFixedSize(true)
+        var adapter = CategoryAdapter()
+        adapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener{
+            override fun onItemClick(category: Category) {
+
+            }
+
+        })
+        initViewModel(adapter)
+    }
+
+    fun initViewModel(adapter : CategoryAdapter){
+        mCategoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
+        mCategoryViewModel.mAllCategories?.observe(this,
+            Observer<List<Category>> {
+                    t -> adapter.submitList(t)
+            })
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                runBlocking {
+                    mCategoryViewModel.remove(adapter.getCategoryAt(viewHolder.adapterPosition))
+                }
+                Toast.makeText(baseContext, "Note Deleted!", Toast.LENGTH_SHORT).show()
+            }
+        }
+        ).attachToRecyclerView(recycler_category)
+    }
+
 }

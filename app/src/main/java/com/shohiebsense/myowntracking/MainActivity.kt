@@ -3,14 +3,12 @@ package com.shohiebsense.myowntracking
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -54,16 +52,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        initRecyclerView()
     }
 
     fun initViewModel(adapter : NoteAdapter){
         mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
-        mNoteViewModel.mAllWords?.observe(this, object : Observer<List<Note>>{
-            override fun onChanged(t: List<Note>?) {
-                adapter.submitList(t)
-            }
-
-        })
+        mNoteViewModel.mAllNotes?.observe(this,
+            Observer<List<Note>> {
+                    t -> adapter.submitList(t)
+            })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {
             override fun onMove(

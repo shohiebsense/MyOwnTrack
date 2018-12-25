@@ -31,5 +31,4 @@ interface NoteDao{
     fun getAllNotesByTimeAdded() : MutableLiveData<List<Note>>
 
 
-
 }
