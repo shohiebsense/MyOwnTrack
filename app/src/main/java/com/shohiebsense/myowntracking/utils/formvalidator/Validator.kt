@@ -37,25 +37,27 @@ class Validator : TextWatcher {
     }
 
     fun onTextChangedValidation() : Boolean {
-        validateEditTexts.forEach {it ->
-            initMinimumStandardLength(it.editText.text.toString())
-            when(it.formType){
+        for(index in 0 .. validateEditTexts.lastIndex){
+            initMinimumStandardLength(validateEditTexts[index].editText.text.toString())
+            when(validateEditTexts[index].formType){
                 ValidateEditText.FORM_TYPE_BASIC -> {
-                    it.passed = setValidation()
+                    validateEditTexts[index].passed = setValidation()
                 }
                 ValidateEditText.FORM_TYPE_EMAIL -> {
-                    it.passed =   setValidation(Patterns.EMAIL_ADDRESS.matcher(it.editText.text.toString()).matches())
+                    validateEditTexts[index].passed =   setValidation(Patterns.EMAIL_ADDRESS.matcher(validateEditTexts[index].editText.text.toString()).matches())
                 }
                 ValidateEditText.FORM_TYPE_PHONE -> {
-                    it.passed = setValidation(Patterns.PHONE.matcher(it.editText.text.toString()).matches())
+                    validateEditTexts[index].passed = setValidation(Patterns.PHONE.matcher(validateEditTexts[index].editText.text.toString()).matches())
                 }
             }
-            if(!it.passed) {
-                listener.onError(it.editText, it.error)
-                return false
+            if(!validateEditTexts[index].passed) {
+                listener.onError(validateEditTexts[index].editText, validateEditTexts[index].error)
+                isValidatorValid = false
+                break
             }
         }
-        return true
+        isValidatorValid = true
+        return isValidatorValid
     }
 
 
