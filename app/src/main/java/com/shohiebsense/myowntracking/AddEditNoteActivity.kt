@@ -26,7 +26,6 @@ import kotlinx.coroutines.runBlocking
 
 class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationListener {
 
-
     lateinit var mCategoryViewModel : CategoryViewModel
     lateinit var editTexts : ArrayList<EditText>
 
