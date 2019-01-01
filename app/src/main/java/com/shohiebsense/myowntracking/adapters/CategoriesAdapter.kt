@@ -10,7 +10,7 @@ import com.shohiebsense.myowntracking.R
 import com.shohiebsense.myowntracking.data.model.Category
 import kotlinx.android.synthetic.main.item_category.view.*
 
-class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DIFF_CALLBACK) {
+class CategoriesAdapter : ListAdapter<Category, CategoriesAdapter.CategoryViewHolder>(DIFF_CALLBACK) {
 
 
     private var listener : OnItemClickListener? = null

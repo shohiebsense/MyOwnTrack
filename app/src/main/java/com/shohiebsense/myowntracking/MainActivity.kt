@@ -15,8 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.shohiebsense.myowntracking.adapters.NoteAdapter
-import com.shohiebsense.myowntracking.data.model.Category
+import com.shohiebsense.myowntracking.adapters.NotesAdapter
 import com.shohiebsense.myowntracking.data.model.Note
 import com.shohiebsense.myowntracking.viewmodel.NoteViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initRecyclerView()
     }
 
-    fun initViewModel(adapter : NoteAdapter){
+    fun initViewModel(adapter : NotesAdapter){
         mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
         mNoteViewModel.mAllNotes?.observe(this,
             Observer<List<Note>> {
@@ -90,9 +89,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun initRecyclerView(){
         recycler_note.layoutManager = LinearLayoutManager(this)
         recycler_note.setHasFixedSize(true)
-        var adapter = NoteAdapter()
+        var adapter = NotesAdapter()
         recycler_note.adapter = adapter
-        adapter.setOnItemClickListener(object : NoteAdapter.OnItemClickListener{
+        adapter.setOnItemClickListener(object : NotesAdapter.OnItemClickListener{
             override fun onItemClick(note: Note) {
 
             }

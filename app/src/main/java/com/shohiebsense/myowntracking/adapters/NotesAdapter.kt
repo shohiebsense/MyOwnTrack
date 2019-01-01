@@ -3,7 +3,6 @@ package com.shohiebsense.myowntracking.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,7 @@ import com.shohiebsense.myowntracking.R
 import com.shohiebsense.myowntracking.data.model.Note
 import kotlinx.android.synthetic.main.item_note.view.*
 
-class NoteAdapter : ListAdapter<Note, NoteAdapter.NoteViewHolder>(DIFF_CALLBACK) {
+class NotesAdapter : ListAdapter<Note, NotesAdapter.NoteViewHolder>(DIFF_CALLBACK) {
 
 
     private var listener : OnItemClickListener? = null

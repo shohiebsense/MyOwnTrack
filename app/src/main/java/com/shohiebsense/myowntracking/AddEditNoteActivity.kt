@@ -2,12 +2,10 @@ package com.shohiebsense.myowntracking
 
 import android.app.Activity
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_edit_note.*
 import android.text.TextUtils
 import android.content.Intent
-import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -15,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.shohiebsense.myowntracking.adapters.CategoryAdapter
+import com.shohiebsense.myowntracking.adapters.CategoriesAdapter
 import com.shohiebsense.myowntracking.data.model.Category
 import com.shohiebsense.myowntracking.utils.formvalidator.ValidateUtils
 import com.shohiebsense.myowntracking.utils.formvalidator.Validator
@@ -66,9 +64,9 @@ class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationList
     fun initRecyclerView(){
         recycler_category.layoutManager = LinearLayoutManager(this)
         recycler_category.setHasFixedSize(true)
-        var adapter = CategoryAdapter()
+        var adapter = CategoriesAdapter()
         recycler_category.adapter = adapter
-        adapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener{
+        adapter.setOnItemClickListener(object : CategoriesAdapter.OnItemClickListener{
             override fun onItemClick(category: Category) {
 
             }
@@ -77,7 +75,7 @@ class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationList
         initViewModel(adapter)
     }
 
-    fun initViewModel(adapter : CategoryAdapter){
+    fun initViewModel(adapter : CategoriesAdapter){
         mCategoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
         mCategoryViewModel.mAllCategories?.observe(this,
             Observer<List<Category>> { t ->

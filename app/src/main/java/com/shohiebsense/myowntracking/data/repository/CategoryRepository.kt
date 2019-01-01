@@ -1,6 +1,6 @@
 package com.shohiebsense.myowntracking.data.repository
 
-import android.app.Application
+import com.shohiebsense.myowntracking.Application
 import com.shohiebsense.myowntracking.data.AppDatabase
 import com.shohiebsense.myowntracking.data.dao.CategoryDao
 import com.shohiebsense.myowntracking.data.model.Category

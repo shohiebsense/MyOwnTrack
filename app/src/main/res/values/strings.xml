@@ -15,4 +15,8 @@
 	<string name="error_validate_email">Email Invalid</string>
 	<string name="error_validate_empty">Must not empty</string>
 	<string name="error_validate_phone">Phone Number is not valid</string>
+	
+	<string name="CAT_API_USER_ID">9aw3xb</string>
+	<string name="CAT_API_KEY">0a72bf17-c30e-484a-b95a-420502057fd8</string>
+	<string name="retry">Retry</string>
 </resources>
