@@ -3,8 +3,7 @@ package com.shohiebsense.myowntracking.data
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.shohiebsense.myowntracking.data.model.Breeds
-import com.shohiebsense.myowntracking.data.model.Category
+import com.shohiebsense.myowntracking.model.Breeds
 
 class BreedsConverter {
 

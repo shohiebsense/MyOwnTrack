@@ -1,18 +1,9 @@
 package com.shohiebsense.myowntracking.data
 
 import androidx.room.TypeConverter
-import com.shohiebsense.myowntracking.data.model.Category
+import com.shohiebsense.myowntracking.model.Category
 import com.squareup.moshi.*
-import com.squareup.moshi.Types.newParameterizedType
-import android.R.attr.data
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.util.*
-import java.util.Collections.emptyList
-
-
-
-
 
 
 class CategoryConverter {

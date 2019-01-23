@@ -5,7 +5,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
-		tools:context=".view.fragment.CatFragment">
+		tools:context=".ui.fragment.CatFragment">
 	
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/swipe_refresh"
@@ -18,6 +18,17 @@
 				android:layout_height="match_parent"
 				android:scrollbars="vertical"
 				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+		
+		<TextView android:id="@+id/text_empty"
+		          android:layout_width="0dp"
+		          android:layout_height="match_parent"
+		          android:gravity="center"
+		          android:text="@string/no_results"
+		          android:visibility="gone"
+		          app:layout_constraintBottom_toBottomOf="parent"
+		          app:layout_constraintEnd_toEndOf="parent"
+		          app:layout_constraintStart_toStartOf="parent"
+		          app:layout_constraintTop_toTopOf="parent"/>
 		
 		
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

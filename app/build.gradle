@@ -29,34 +29,35 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha02'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
 
+    //cooutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0'
 
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01'
-    //implementation 'androidx.lifecycle:extensions-ktx:2.1.0-alpha-01'
+    //lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha01"
     implementation 'androidx.lifecycle:lifecycle-runtime:2.1.0-alpha01'
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.1.0-alpha01'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01"
+    //implementation 'androidx.lifecycle:lifecycle-compiler:2.1.0-alpha01'
     //implementation 'androidx.lifecycle:lifecycle-common-java8:2.1.0-alpha01'
 
-
+    //room
     implementation 'androidx.room:room-runtime:2.1.0-alpha03'
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
-
     kapt "android.arch.persistence.room:compiler:1.1.1"
+
+    //paging
+    implementation "androidx.paging:paging-runtime-ktx:2.1.0-rc01"
 
     //view
     implementation 'com.shawnlin:number-picker:2.4.7'
     implementation "com.wajahatkarim3.easyvalidation:easyvalidation-core:1.0.1"
     implementation 'com.facebook.fresco:fresco:1.11.0'
 
+    //helper
     implementation("com.squareup.okhttp3:okhttp:3.12.0")
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation("com.squareup.moshi:moshi-kotlin:1.8.0")
     implementation("com.squareup.moshi:moshi:1.8.0")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.8.0")
-
-
 
     kapt 'androidx.room:room-compiler:2.1.0-alpha03'
     androidTestImplementation 'androidx.room:room-testing:2.1.0-alpha03'

@@ -7,9 +7,9 @@ import android.os.AsyncTask
 import com.shohiebsense.myowntracking.data.dao.CatDao
 import com.shohiebsense.myowntracking.data.dao.CategoryDao
 import com.shohiebsense.myowntracking.data.dao.NoteDao
-import com.shohiebsense.myowntracking.data.model.Cat
-import com.shohiebsense.myowntracking.data.model.Category
-import com.shohiebsense.myowntracking.data.model.Note
+import com.shohiebsense.myowntracking.model.Cat
+import com.shohiebsense.myowntracking.model.Category
+import com.shohiebsense.myowntracking.model.Note
 
 @Database(entities = [Note::class, Category::class, Cat::class], version = 1)
 @TypeConverters(CategoryConverter::class, BreedsConverter::class)
@@ -17,6 +17,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun noteDao() : NoteDao
     abstract fun categoryDao() : CategoryDao
+    abstract fun catDao() : CatDao
 
     companion object {
         @Volatile private var instance: AppDatabase? = null
@@ -51,16 +52,13 @@ abstract class AppDatabase : RoomDatabase() {
 
     }
 
-
-    abstract fun cats() : CatDao
-
     class PopulateDbAsyncTask(db : AppDatabase?) : AsyncTask<Unit, Unit, Unit>(){
         private val categoryDao = db?.categoryDao()
 
         override fun doInBackground(vararg params: Unit?) {
-            categoryDao?.insert(Category("Guitar",1))
-            categoryDao?.insert(Category("Programming",2))
-            categoryDao?.insert(Category("Sport",3))
+            categoryDao?.insert(Category("Guitar", 1))
+            categoryDao?.insert(Category("Programming", 2))
+            categoryDao?.insert(Category("Sport", 3))
         }
     }
 

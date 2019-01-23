@@ -1,10 +1,11 @@
 package com.shohiebsense.myowntracking.data.dao
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.shohiebsense.myowntracking.data.model.Cat
+import com.shohiebsense.myowntracking.model.Cat
 
 @Dao
 interface CatDao {
@@ -13,6 +14,8 @@ interface CatDao {
     fun insert(cats : List<Cat>)
 
     @Query("SELECT * FROM cats")
-    fun cats() : List<Cat>
+    fun getCats() : DataSource.Factory<Int, Cat>
 
+    @Query("SELECT COUNT(*) FROM cats")
+    fun getSize() : Int
 }
