@@ -22,6 +22,8 @@ import com.shohiebsense.myowntracking.api.cat.CatService
 import com.shohiebsense.myowntracking.data.AppDatabase
 import com.shohiebsense.myowntracking.data.CatRepository
 import com.shohiebsense.myowntracking.db.CatLocalCache
+import com.shohiebsense.myowntracking.db.repository.CategoryRepository
+import com.shohiebsense.myowntracking.db.repository.NoteRepository
 import com.shohiebsense.myowntracking.ui.viewmodel.ViewModelFactory
 import java.util.concurrent.Executors
 
@@ -40,12 +42,25 @@ object Injection {
         return CatLocalCache(database!!.catDao(), Executors.newSingleThreadExecutor())
     }
 
+
+    private fun provideDatabase(context : Context) : AppDatabase {
+        return AppDatabase.getInstance(context)!!
+    }
+
     /**
      * Creates an instance of [GithubRepository] based on the [GithubService] and a
      * [GithubLocalCache]
      */
-    private fun provideGithubRepository(context: Context): CatRepository {
+    fun provideGithubRepository(context: Context): CatRepository {
         return CatRepository(CatService(), provideCache(context))
+    }
+
+    fun providedNoteRepository(context: Context): NoteRepository {
+        return NoteRepository(provideDatabase(context).noteDao())
+    }
+
+    fun provideCategoryRepository(context : Context) : CategoryRepository {
+        return CategoryRepository(provideDatabase(context).categoryDao())
     }
 
     /**
@@ -53,7 +68,7 @@ object Injection {
      * [ViewModel] objects.
      */
     fun provideViewModelFactory(context: Context): ViewModelProvider.Factory {
-        return ViewModelFactory(provideGithubRepository(context))
+        return ViewModelFactory(context)
     }
 
 }

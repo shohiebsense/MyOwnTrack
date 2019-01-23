@@ -1,5 +1,6 @@
 package com.shohiebsense.myowntracking.ui.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.*
 import com.shohiebsense.myowntracking.Application
 import androidx.lifecycle.Transformations.map
@@ -8,10 +9,16 @@ import androidx.paging.PagedList
 import com.shohiebsense.myowntracking.data.CatRepository
 import com.shohiebsense.myowntracking.model.Cat
 import com.shohiebsense.myowntracking.model.CatSearchResult
+import com.shohiebsense.myowntracking.utils.Injection
 
 class CatViewModel(
-    private val repository: CatRepository
+   context : Context
 ) : ViewModel() {
+
+    var repository : CatRepository
+    init {
+        repository = Injection.provideGithubRepository(context)
+    }
 
     companion object {
         private const val VISIBLE_THRESHOLD = 5

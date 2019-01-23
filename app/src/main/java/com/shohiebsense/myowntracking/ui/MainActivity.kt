@@ -19,6 +19,7 @@ import com.shohiebsense.myowntracking.R
 import com.shohiebsense.myowntracking.ui.adapters.NotesAdapter
 import com.shohiebsense.myowntracking.model.Note
 import com.shohiebsense.myowntracking.ui.viewmodel.NoteViewModel
+import com.shohiebsense.myowntracking.utils.Injection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -26,7 +27,7 @@ import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var mNoteViewModel : NoteViewModel
+    private lateinit var viewModel: NoteViewModel
 
     companion object {
         const val ADD_NOTE_REQUEST = 1
@@ -37,6 +38,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(this))
+                .get(NoteViewModel::class.java)
+
 
 
 
@@ -60,8 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun initViewModel(adapter : NotesAdapter){
-        mNoteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
-        mNoteViewModel.mAllNotes?.observe(this,
+        viewModel.mAllNotes?.observe(this,
             Observer<List<Note>> {
                     t -> adapter.submitList(t)
             })
@@ -77,7 +80,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 runBlocking {
-                    mNoteViewModel.remove(adapter.getNoteAt(viewHolder.adapterPosition))
+                    viewModel.remove(adapter.getNoteAt(viewHolder.adapterPosition))
                 }
                 Toast.makeText(baseContext, "Note Deleted!", Toast.LENGTH_SHORT).show()
             }
@@ -157,7 +160,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 ""
             )
             runBlocking {
-                mNoteViewModel.insert(newNote)
+                viewModel.insert(newNote)
             }
 
             Toast.makeText(this, "Note saved!", Toast.LENGTH_SHORT).show()
@@ -178,7 +181,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             )
             updateNote.id = data.getIntExtra(AddEditNoteActivity.EXTRA_ID, -1)
             runBlocking {
-                mNoteViewModel.edit(updateNote)
+                viewModel.edit(updateNote)
             }
 
         } else {

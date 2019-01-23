@@ -19,6 +19,7 @@ import com.shohiebsense.myowntracking.model.Category
 import com.shohiebsense.myowntracking.utils.formvalidator.ValidateUtils
 import com.shohiebsense.myowntracking.utils.formvalidator.Validator
 import com.shohiebsense.myowntracking.ui.viewmodel.CategoryViewModel
+import com.shohiebsense.myowntracking.utils.Injection
 import kotlinx.android.synthetic.main.content_add_edit_note.*
 import kotlinx.coroutines.runBlocking
 
@@ -77,7 +78,8 @@ class AddEditNoteActivity : AppCompatActivity(), Validator.onErrorValidationList
     }
 
     fun initViewModel(adapter : CategoriesAdapter){
-        mCategoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
+        mCategoryViewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(this))
+        .get(CategoryViewModel::class.java)
         mCategoryViewModel.mAllCategories?.observe(this,
             Observer<List<Category>> { t ->
                 adapter.submitList(t)

@@ -2,26 +2,13 @@ package com.shohiebsense.myowntracking.db.repository
 
 import com.shohiebsense.myowntracking.Application
 import com.shohiebsense.myowntracking.data.AppDatabase
+import com.shohiebsense.myowntracking.data.dao.NoteDao
 import com.shohiebsense.myowntracking.model.Note
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
-class NoteRepository private constructor(
-    private val application: Application
-) {
+class NoteRepository (val noteDao : NoteDao) {
 
-    private val noteDao = AppDatabase.getInstance(application.applicationContext)?.noteDao()
-
-    companion object {
-        @Volatile
-        private var instance: NoteRepository? = null
-
-        fun getInstance(application: Application) =
-            instance ?: synchronized(this) {
-                instance ?: NoteRepository(application)
-                    .also { instance = it }
-            }
-    }
 
     suspend fun createNote(note: Note) {
         withContext(IO) {
