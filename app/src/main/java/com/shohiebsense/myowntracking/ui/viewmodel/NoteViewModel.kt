@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.shohiebsense.myowntracking.db.repository.NoteRepository
 import com.shohiebsense.myowntracking.model.Note
 
-class NoteViewModel(application: Application) : AndroidViewModel(application) {
+open class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     private var mRepository : NoteRepository = NoteRepository.getInstance(application)
     var mAllNotes = mRepository.getNotes()
@@ -23,6 +23,5 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     suspend fun remove(note : Note){
         mRepository.removeNote(note)
     }
-
 
 }

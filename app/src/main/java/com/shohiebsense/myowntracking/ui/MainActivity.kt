@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_manage -> {
-
+                //startActivity(Intent(this, CatActivity::class.java))
             }
             R.id.nav_share -> {
 
