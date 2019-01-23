@@ -1,4 +1,4 @@
-package com.shohiebsense.myowntracking.adapters
+package com.shohiebsense.myowntracking.view.adapters
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,9 +1,9 @@
-package com.shohiebsense.myowntracking.viewmodel
+package com.shohiebsense.myowntracking.view.viewmodel
 
 import com.shohiebsense.myowntracking.Application
 import androidx.lifecycle.AndroidViewModel
 import com.shohiebsense.myowntracking.data.model.Note
-import com.shohiebsense.myowntracking.data.repository.NoteRepository
+import com.shohiebsense.myowntracking.service.repository.NoteRepository
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 

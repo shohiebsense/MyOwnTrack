@@ -1,16 +1,13 @@
-package com.shohiebsense.myowntracking.adapters
+package com.shohiebsense.myowntracking.view.adapters
 
 import android.net.Uri
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shohiebsense.myowntracking.R
-import com.shohiebsense.myowntracking.adapters.viewholder.CatViewHolder
-import com.shohiebsense.myowntracking.adapters.viewholder.NetworkStateViewHolder
+import com.shohiebsense.myowntracking.view.adapters.viewholder.CatViewHolder
+import com.shohiebsense.myowntracking.view.adapters.viewholder.NetworkStateViewHolder
 import com.shohiebsense.myowntracking.data.model.Cat
 import com.shohiebsense.myowntracking.data.model.NetworkState
 import kotlinx.android.synthetic.main.item_cat.view.*
@@ -43,7 +40,7 @@ class CatsAdapter(
         return when(viewType) {
             R.layout.item_cat -> CatViewHolder.create(parent)
             R.layout.item_network_state -> NetworkStateViewHolder.create(parent,retryCallback)
-            else -> throw IllegalArgumentException("unknown view type $viewType")
+            else -> throw IllegalArgumentException("unknown view type $viewType") as Throwable
         }
     }
 

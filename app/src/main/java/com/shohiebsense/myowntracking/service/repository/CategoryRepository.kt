@@ -1,8 +1,7 @@
-package com.shohiebsense.myowntracking.data.repository
+package com.shohiebsense.myowntracking.service.repository
 
 import com.shohiebsense.myowntracking.Application
 import com.shohiebsense.myowntracking.data.AppDatabase
-import com.shohiebsense.myowntracking.data.dao.CategoryDao
 import com.shohiebsense.myowntracking.data.model.Category
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext

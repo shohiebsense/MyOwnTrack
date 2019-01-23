@@ -1,9 +1,9 @@
-package com.shohiebsense.myowntracking.viewmodel
+package com.shohiebsense.myowntracking.view.viewmodel
 
 import androidx.lifecycle.AndroidViewModel
 import com.shohiebsense.myowntracking.Application
 import com.shohiebsense.myowntracking.data.model.Category
-import com.shohiebsense.myowntracking.data.repository.CategoryRepository
+import com.shohiebsense.myowntracking.service.repository.CategoryRepository
 
 class CategoryViewModel(application : Application) : AndroidViewModel(application) {
 

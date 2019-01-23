@@ -4,12 +4,15 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.room.*
 import android.content.Context
 import android.os.AsyncTask
+import com.shohiebsense.myowntracking.data.dao.CatDao
 import com.shohiebsense.myowntracking.data.dao.CategoryDao
 import com.shohiebsense.myowntracking.data.dao.NoteDao
+import com.shohiebsense.myowntracking.data.model.Cat
 import com.shohiebsense.myowntracking.data.model.Category
 import com.shohiebsense.myowntracking.data.model.Note
 
-@Database(entities = [Note::class, Category::class], version = 1)
+@Database(entities = [Note::class, Category::class, Cat::class], version = 1)
+@TypeConverters(CategoryConverter::class, BreedsConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun noteDao() : NoteDao
@@ -49,6 +52,7 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
 
+    abstract fun cats() : CatDao
 
     class PopulateDbAsyncTask(db : AppDatabase?) : AsyncTask<Unit, Unit, Unit>(){
         private val categoryDao = db?.categoryDao()

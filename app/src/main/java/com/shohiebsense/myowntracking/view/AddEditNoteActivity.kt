@@ -1,4 +1,4 @@
-package com.shohiebsense.myowntracking
+package com.shohiebsense.myowntracking.view
 
 import android.app.Activity
 import android.os.Bundle
@@ -13,11 +13,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.shohiebsense.myowntracking.adapters.CategoriesAdapter
+import com.shohiebsense.myowntracking.R
+import com.shohiebsense.myowntracking.view.adapters.CategoriesAdapter
 import com.shohiebsense.myowntracking.data.model.Category
 import com.shohiebsense.myowntracking.utils.formvalidator.ValidateUtils
 import com.shohiebsense.myowntracking.utils.formvalidator.Validator
-import com.shohiebsense.myowntracking.viewmodel.CategoryViewModel
+import com.shohiebsense.myowntracking.view.viewmodel.CategoryViewModel
 import kotlinx.android.synthetic.main.content_add_edit_note.*
 import kotlinx.coroutines.runBlocking
 

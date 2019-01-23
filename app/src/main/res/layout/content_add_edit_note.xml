@@ -7,7 +7,7 @@
 		tools:showIn="@layout/activity_add_edit_note"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:context=".AddEditNoteActivity">
+		tools:context=".view.AddEditNoteActivity">
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"

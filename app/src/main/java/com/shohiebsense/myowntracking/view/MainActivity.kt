@@ -1,4 +1,4 @@
-package com.shohiebsense.myowntracking
+package com.shohiebsense.myowntracking.view
 
 import android.app.Activity
 import android.content.Intent
@@ -15,9 +15,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.shohiebsense.myowntracking.adapters.NotesAdapter
+import com.shohiebsense.myowntracking.R
+import com.shohiebsense.myowntracking.view.adapters.NotesAdapter
 import com.shohiebsense.myowntracking.data.model.Note
-import com.shohiebsense.myowntracking.viewmodel.NoteViewModel
+import com.shohiebsense.myowntracking.view.viewmodel.NoteViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -47,7 +48,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
