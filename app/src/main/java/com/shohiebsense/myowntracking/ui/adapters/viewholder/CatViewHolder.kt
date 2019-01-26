@@ -1,5 +1,6 @@
 package com.shohiebsense.myowntracking.ui.adapters.viewholder
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,5 +34,9 @@ class CatViewHolder(val view : View) : RecyclerView.ViewHolder(view){
     fun updateCat(item: Cat?) {
         cat = item
         view.text_cat_name.text = "${item?.id ?: 0}"
+        if(cat?.breeds!!.isNotEmpty()){
+            view.text_cat_name.text = cat?.breeds!![0].name
+        }
+        view.image_cat.setImageURI(Uri.parse(cat?.url))
     }
 }

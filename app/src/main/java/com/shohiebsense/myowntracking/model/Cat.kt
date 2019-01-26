@@ -11,10 +11,10 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Cat(
     @PrimaryKey
-    @Json(name = "id") var id : Int,
+    @Json(name = "id") var id : String,
     @Json(name = "url") var url: String,
-    @TypeConverters(CategoryConverter::class)
-    @Json(name = "categories") var category: List<Category>,
+    /*@TypeConverters(CategoryConverter::class)
+    @Json(name = "categories") var category: List<Category>,*/
     @TypeConverters(Breeds::class)
     @Json(name = "breeds") var breeds : List<Breeds>
 ) {

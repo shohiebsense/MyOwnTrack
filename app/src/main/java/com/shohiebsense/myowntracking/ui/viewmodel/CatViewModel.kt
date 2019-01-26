@@ -1,6 +1,7 @@
 package com.shohiebsense.myowntracking.ui.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import com.shohiebsense.myowntracking.Application
 import androidx.lifecycle.Transformations.map
@@ -26,6 +27,7 @@ class CatViewModel(
 
     private val queryLiveData = MutableLiveData<String>()
     private val repoResult: LiveData<CatSearchResult> = Transformations.map(queryLiveData, {
+        Log.e("shohiebsee ","live data "+it)
         repository.search(it)
     })
 

@@ -14,7 +14,7 @@ class CatRepository(
      * Search repositories whose names match the query.
      */
     fun search(query: String): CatSearchResult {
-        Log.d("GithubRepository", "New query: $query")
+        Log.d("Shohiebsensee", "New query: $query")
         //lastRequestedPage = 1
         //requestAndSaveData(query)
 

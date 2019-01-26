@@ -13,10 +13,12 @@ import java.io.IOException
 //add any parameters llke page here
 fun getCats(
     service: CatService,
+    page : Int,
     onSuccess : (cats : List<Cat>) -> Unit,
     onError : (error : String) -> Unit
 ){
-    service.invoke {
+    Log.e("shohiebsense ","get cats")
+    service.search(page) {
         cats ->
         if(cats == null){
             onError("")
@@ -31,8 +33,8 @@ class CatService {
     private var urlBuilder : HttpUrl.Builder? = null
     private var url : HttpUrl? = null
     private var request : Request.Builder? = null
-    private var moshi : Moshi
-    private var catJsonAdapter : JsonAdapter<Cat>
+    private lateinit var moshi : Moshi
+    private lateinit var catJsonAdapter : JsonAdapter<Cat>
 
     class ListingResponse(val data: ListingData)
 
@@ -43,28 +45,32 @@ class CatService {
     )
 
     init {
+
+
+    }
+
+
+
+
+    fun search(page : Int, action: CatService.(cats : List<Cat>?) -> Unit){
+        Log.e("shohiebsense ","invoked")
         urlBuilder = HttpUrl.parse("${APIConstants.CAT_API_BASE_URL}${APIConstants.CAT_API_SEARCH}")
             ?.newBuilder()
         request = Request.Builder().header(
             APIConstants.CAT_API_KEY_HEADER, APIConstants.CAT_API_KEY
         )
-        moshi = Moshi.Builder().build()
-        catJsonAdapter = moshi.adapter(Cat::class.java)
-        default()
-    }
-
-    fun default(){
-        urlBuilder?.addQueryParameter(
-            APIConstants.API_PARAM_PAGE, APIConstants.API_PARAM_VALUE_DEFAULT_PAGE.toString())
         urlBuilder?.addQueryParameter(
             APIConstants.API_PARAM_LIMIT, APIConstants.API_PARAM_VALUE_DEFAULT_LIMIT.toString()
         )
-    }
+        urlBuilder?.addQueryParameter(
+            APIConstants.API_PARAM_PAGE,  page.toString())
+        moshi = Moshi.Builder().build()
+        catJsonAdapter = moshi.adapter(Cat::class.java)
 
 
-
-    operator fun invoke(action: CatService.(cats : List<Cat>?) -> Unit){
         url = urlBuilder?.build()
+
+
         var builtRequest =  request?.url(url!!)
             ?.build()
 
@@ -72,15 +78,16 @@ class CatService {
         client.newCall(builtRequest)
             .enqueue(object  : Callback {
                 override fun onFailure(call: Call, e: IOException) {
+                    Log.e("shohiebsensee ",e.toString())
                     call.cancel()
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val responseSource = response.body()?.source()
-                    Log.e("shohiebsense ",response.body().toString())
+                    val responseSource = response.body()?.string()
+                    Log.e("shohiebsense on url ${call.request().url()}",responseSource)
                     val listType = Types.newParameterizedType(List::class.java, Cat::class.java)
                     val adapter: JsonAdapter<List<Cat>> = moshi.adapter(listType)
-                    val result = adapter.fromJson(response.body()?.string()!!)
+                    val result = adapter.fromJson(responseSource)
                     action(result)
                 }
             })

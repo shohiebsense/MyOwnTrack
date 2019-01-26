@@ -1,5 +1,6 @@
 package com.shohiebsense.myowntracking.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
@@ -38,8 +39,6 @@ class CatBoundaryCallback (val query: String,
      */
 
 
-
-
     override fun onItemAtEndLoaded(itemAtEnd: Cat) {
         requestAndSaveData(query)
     }
@@ -49,10 +48,14 @@ class CatBoundaryCallback (val query: String,
     }
 
     private fun requestAndSaveData(query: String) {
-        if (isRequestInProgress) return
+        if (isRequestInProgress){
+            Log.e("shohiebsense ","request in progress")
+            return
+        }
 
         isRequestInProgress = true
-        getCats(service, {
+        Log.e("shohiebsensee ","requesting "+lastRequestedPage)
+        getCats(service, lastRequestedPage, {
                 cats ->
             cache.insert(cats, {
                 lastRequestedPage++

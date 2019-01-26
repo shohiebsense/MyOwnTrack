@@ -11,7 +11,7 @@ import com.shohiebsense.myowntracking.model.Cat
 import com.shohiebsense.myowntracking.model.Category
 import com.shohiebsense.myowntracking.model.Note
 
-@Database(entities = [Note::class, Category::class, Cat::class], version = 1)
+@Database(entities = [Note::class, Category::class, Cat::class], version = 2, exportSchema = true)
 @TypeConverters(CategoryConverter::class, BreedsConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 

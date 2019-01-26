@@ -12,11 +12,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.shohiebsense.myowntracking.R
 import com.shohiebsense.myowntracking.model.Cat
 import com.shohiebsense.myowntracking.ui.adapters.CatsAdapter
 import com.shohiebsense.myowntracking.ui.viewmodel.CatViewModel
 import com.shohiebsense.myowntracking.utils.Injection
+import com.shohiebsense.myowntracking.utils.exts.visible
 import kotlinx.android.synthetic.main.fragment_cat.*
 
 
@@ -37,7 +39,7 @@ private const val ARG_PARAM2 = "param2"
 class CatFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: CatViewModel
-    private lateinit var adapter : CatsAdapter
+    private var adapter = CatsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,16 +61,10 @@ class CatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        context?.let {
-            viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(it))
-                .get(CatViewModel::class.java)
-        }
-        adapter = CatsAdapter {
-            //retryhandle
-        }
+        viewModel = ViewModelProviders.of(this, Injection.provideViewModelFactory(context!!))
+            .get(CatViewModel::class.java)
+
         // add dividers between RecyclerView's row items
-        val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        recycler_cat.addItemDecoration(decoration)
 
         initAdapter()
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
@@ -77,9 +73,14 @@ class CatFragment : Fragment() {
 
 
     private fun initAdapter() {
+
+        val layoutManager = LinearLayoutManager(context)
+        recycler_cat.layoutManager = layoutManager
         recycler_cat.adapter = adapter
+        val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        recycler_cat.addItemDecoration(decoration)
         viewModel.repos.observe(this, Observer<PagedList<Cat>> {
-            Log.d("Activity", "list: ${it?.size}")
+            Log.e("shohiebsensee ","observed")
             showEmptyList(it?.size == 0)
             adapter.submitList(it)
         })
@@ -90,8 +91,8 @@ class CatFragment : Fragment() {
         })
     }
 
-    private fun showEmptyList(show: Boolean) {
-        if (show) {
+    private fun showEmptyList(isEmpty: Boolean) {
+        if (isEmpty) {
             text_empty.visibility = View.VISIBLE
             recycler_cat.visibility = View.GONE
         } else {

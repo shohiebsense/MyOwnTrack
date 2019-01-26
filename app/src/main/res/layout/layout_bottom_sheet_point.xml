@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/bottomSheetPoint"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:behavior_hideable="true"
+		app:behavior_peekHeight="0dp"
+		app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/layout_strip"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			>
+		
+		<View
+				android:id="@+id/view_strip_first"
+				android:layout_width="47dp"
+				android:layout_height="3dp"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				/>
+		
+		<View
+				android:id="@+id/view_strip_second"
+				android:layout_width="47dp"
+				android:layout_height="3dp"
+				app:layout_constraintTop_toBottomOf="@+id/view_strip_first"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"/>
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+	
+	<TextView
+			android:id="@+id/text_topup_title"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/layout_strip"
+			app:layout_constraintRight_toRightOf="parent"
+			/>
+	
+	
+	
+	<ImageView
+			android:id="@+id/image_coming_soon"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/text_topup_title"/>
+	
+	<TextView
+			android:id="@+id/tvComingSoonDesc"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/image_coming_soon"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
