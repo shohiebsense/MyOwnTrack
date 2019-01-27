@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shohiebsense.myowntracking.R
 import com.shohiebsense.myowntracking.model.Cat
 import com.shohiebsense.myowntracking.ui.adapters.CatsAdapter
+import com.shohiebsense.myowntracking.ui.custom.EndlessRecyclerViewScrollListener
 import com.shohiebsense.myowntracking.ui.viewmodel.CatViewModel
 import com.shohiebsense.myowntracking.utils.Injection
 import com.shohiebsense.myowntracking.utils.exts.visible
@@ -40,6 +41,7 @@ class CatFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var viewModel: CatViewModel
     private var adapter = CatsAdapter()
+    var isLoading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +90,15 @@ class CatFragment : Fragment() {
             context.let {
                 Toast.makeText(it, "\uD83D\uDE28 Wooops ${it}", Toast.LENGTH_LONG).show()
             }
+        })
+        recycler_cat.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManager){
+            override val loading: Boolean
+                get() = isLoading
+
+            override fun onLoadMore() {
+                Toast.makeText(context, "called the api load more",Toast.LENGTH_SHORT).show()
+            }
+
         })
     }
 
